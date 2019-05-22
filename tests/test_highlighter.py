@@ -17,8 +17,8 @@ class HighlightTest(unittest.TestCase):
         self.search_text = b"Text"
         self.text = b"Sample text to be highlighted"
         self.highlighted_text = b'Sample <mark>text</mark> to be highlighted'
-        self.is_sensitive = '1'
-        self.is_not_sensitive = '0'
+        self.is_sensitive = '0'
+        self.is_not_sensitive = '1'
 
     def tearDown(self):
         """This method is called after the test routine is finished
