@@ -4,6 +4,7 @@ date: 12.12.2012
 author smith@example.com
 license: MIT"""
 
+import re
 from flask import Flask, render_template, request, Markup
 
 
@@ -44,12 +45,13 @@ def create_app():
         @:return marked text, e.g., "<mark>Th</mark>e sun in <mark>th</mark>e sky"."""
 
         if is_sensitive == '0':
-            for word in text.split():
-                if word.lower() == expr.lower():
-                    text = text.replace(word, markup_text(word))
+            for token in re.findall(expr, text, re.IGNORECASE):
+                text = text.replace(token, markup_text(token))
         else:
-            if expr in text:
-                text = text.replace(expr, markup_text(expr))
+            for token in re.findall(expr, text):
+                text = text.replace(token, markup_text(token))
+
+
         result = text
         return result
 
