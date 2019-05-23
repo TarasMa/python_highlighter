@@ -14,14 +14,14 @@ def create_app():
     template_file_name = 'index.html'
 
     @app.route('/', methods=['GET'])
-    def index():
+    def index():    # pylint: disable=W0612
         return render_template(template_file_name)
 
     @app.route('/', methods=['POST'])
-    def process():
+    def process():    # pylint: disable=W0612
         search_text = request.form['search']
         text = request.form['text']
-        is_sensitive = request.form['is_sensitive']
+        is_sensitive = request.form.get('is_sensitive', '0')
 
         highlighted_text = highlight_text(text, search_text, is_sensitive)
         result = {'text': text,
@@ -43,7 +43,7 @@ def create_app():
         @:param expr - string pattern to be searched in the text (e.g., 'th')
         @:return marked text, e.g., "<mark>Th</mark>e sun in <mark>th</mark>e sky"."""
 
-        if int(is_sensitive) == 0:
+        if is_sensitive == '0':
             for word in text.split():
                 if word.lower() == expr.lower():
                     text = text.replace(word, markup_text(word))
