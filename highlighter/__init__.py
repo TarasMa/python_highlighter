@@ -51,7 +51,6 @@ def create_app():
             for token in re.findall(expr, text):
                 text = text.replace(token, markup_text(token))
 
-
         result = text
         return result
 
