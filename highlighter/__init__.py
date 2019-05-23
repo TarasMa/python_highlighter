@@ -14,11 +14,11 @@ def create_app():
     template_file_name = 'index.html'
 
     @app.route('/', methods=['GET'])
-    def index():
+    def index():    # pylint: disable=W0612
         return render_template(template_file_name)
 
     @app.route('/', methods=['POST'])
-    def process():
+    def process():    # pylint: disable=W0612
         search_text = request.form['search']
         text = request.form['text']
         is_sensitive = request.form.get('is_sensitive', '0')
